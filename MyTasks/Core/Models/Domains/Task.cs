@@ -9,12 +9,12 @@ namespace MyTasks.Core.Models.Domains
         [MaxLength(50)]
         [Required(ErrorMessage = "Pole Tytuł jest wymagane.")]
         [Display(Name = "Tytuł")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [MaxLength(250)]
         [Required(ErrorMessage = "Pole Opis jest wymagane.")]
         [Display(Name = "Opis")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Required(ErrorMessage = "Pole Kategoria jest wymagane.")]
         [Display(Name = "Kategoria")]
@@ -25,9 +25,9 @@ namespace MyTasks.Core.Models.Domains
 
         [Display(Name = "Zrealizowane")]
         public bool IsExecuted { get; set; } 
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
-        public Category Category { get; set; }
-        public ApplicationUser User { get; set; }
+        public Category? Category { get; set; }
+        public ApplicationUser? User { get; set; }
     }
 }

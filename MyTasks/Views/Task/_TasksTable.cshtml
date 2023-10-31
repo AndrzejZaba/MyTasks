@@ -26,13 +26,13 @@
                             @if (!task.IsExecuted)
                             {
                                 <button class="btn btn-success btn-sm mr-2"
-                                        onclick="finishTask('@task.Id',@this)">
+                                        onclick="finishTask('@task.Id', this)">
                                     Zrealizuj
                                 </button>
                             }
                             <button class="btn btn-danger btn-sm "
-                                        onclick="deleteTask('@task.Id',@this)">
-                                    Zrealizuj
+                                        onclick="deleteTask('@task.Id', this)">
+                                    Usuń
                             </button>
                         </td>
                     </tr>
@@ -41,7 +41,7 @@
             else
             {
                 <tr>
-                    <td colspan="5">
+                    <td colspan="5" class="align-content-center">
                         Brak zaplanowanych zadań do wykonania!
                     </td>
                 </tr>    

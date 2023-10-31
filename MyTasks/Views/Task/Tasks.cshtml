@@ -9,25 +9,27 @@
 @* formularz filtrowania *@
 
 <form id="filterForm" class="row gy-2 gx-3 align-items-center">
-    <div class="col-auto">
-        @Html.TextBoxFor(x => x.FilterTasks.Title, new { @class="form-control mb-2", placeholder = "Tytuł"})
-        <input type="text" class="form-control" id="autoSizingInput" placeholder="Jane Doe">
-    </div>
-    <div class="col-auto">
-        @Html.DropDownListFor(x => x.FilterTasks.CategoryId, 
-        new SelectList(Model.Categories, "Id", "Name"), 
-        "-- Wybierz kategorię --", new 
-        { @class = "form-control mb-2"})
-    <div class="input-group">
-    <div class="input-group-text">
-        @Html.CheckBoxFor(x => x.FilterTasks.IsExecuted, new { @class="form-check-label"})
+    <div class="row input-group">
+        <div class="col-auto">
+            @Html.TextBoxFor(x => x.FilterTasks.Title, new { @class="form-control mb-2", placeholder = "Tytuł"})
+        </div>
+        <div class="col-auto">
+            @Html.DropDownListFor(x => x.FilterTasks.CategoryId, 
+            new SelectList(Model.Categories, "Id", "Name"), 
+            "-- Wybierz kategorię --", new 
+            { @class = "form-control mb-2"})
+        </div>
+        <div class="col-auto form-check-inline mt-1">
+            @Html.CheckBoxFor(x => x.FilterTasks.IsExecuted, new { @class="form-check-label"})
 
-        @Html.LabelFor(x => x.FilterTasks.IsExecuted)
+            @Html.LabelFor(x => x.FilterTasks.IsExecuted)
+        </div>
+
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Szukaj</button>
+        </div>
     </div>
 
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Szukaj</button>
-    </div>
 </form>
 
 
@@ -51,7 +53,7 @@
                     data: $(this).serialize(),
                     success: function (data) {
 
-                        $('#taskTable').html(data);
+                        $('#tasksTable').html(data);
                     },
                     error: function (data) {
 
