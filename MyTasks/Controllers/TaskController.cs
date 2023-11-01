@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyTasks.Core.Models.Domains;
+using MyTasks.Core.Services;
 using MyTasks.Core.ViewModels;
 using MyTasks.Persistance;
 using MyTasks.Persistance.Services;
@@ -14,11 +15,11 @@ namespace MyTasks.Controllers
     [Authorize]
     public class TaskController : Controller
     {
-        private TaskService _taskService;
+        private ITaskService _taskService;
 
-        public TaskController(ApplicationDbContext context)
+        public TaskController(ITaskService taskService)
         {
-            _taskService = new TaskService(new UnitOfWork(context));
+            _taskService = taskService;
         }
         public IActionResult Tasks()
         {

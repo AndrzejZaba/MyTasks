@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MyTasks.Core;
 using MyTasks.Core.Models.Domains;
+using MyTasks.Core.Services;
 using MyTasks.Persistance;
+using MyTasks.Persistance.Services;
 
 namespace MyTasks
 {
@@ -10,6 +13,17 @@ namespace MyTasks
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+
+            // Dependency Injection
+            //Scoped - na jednym requescie u¿ytkownika pracujemy na tym samym obiekcie TaskService
+            //Singleton - mamy jeden obiekt danej klasy na ca³¹ aplikacjê
+            //Transient - ka¿de u¿ycie TaskService powoduje stworzenie nowego obiektu (nowej instancji)
+            builder.Services.AddScoped<ITaskService, TaskService>();
+            builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");

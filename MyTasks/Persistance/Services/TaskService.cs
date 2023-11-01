@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyTasks.Core;
 using MyTasks.Core.Models.Domains;
+using MyTasks.Core.Services;
 using Task = MyTasks.Core.Models.Domains.Task;
 
 namespace MyTasks.Persistance.Services
@@ -15,15 +17,18 @@ namespace MyTasks.Persistance.Services
 
     // W kontrolerach natomiast ma być mało operacji: walidacja danych, wywołanie serwisów, stworzenie VM i zwrócenie widoku
 
-    public class TaskService
+
+
+    // Dependency Injection - wstrzykiwanie zależności - wzorzec polegający na usuwaniu bezpośrednich zależności w kodzie
+    public class TaskService : ITaskService
     {
-        private readonly UnitOfWork _unitOfWork;
-        public TaskService(UnitOfWork unitOfWork)
+        private readonly IUnitOfWork _unitOfWork;
+        public TaskService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Task> Get(string userId, bool isExecuted = false, int categoryId = 0, string title = null)
+        public IEnumerable<Task> Get(string userId, bool isExecuted = false, int categoryId = 0, string? title = null)
         {
             return _unitOfWork.Task.Get(userId, isExecuted, categoryId, title);
         }

@@ -1,19 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyTasks.Core;
 using MyTasks.Core.Models.Domains;
+using MyTasks.Core.Repositories;
 using MyTasks.Persistance;
-using System.Threading.Tasks;
 using Task = MyTasks.Core.Models.Domains.Task;
 
 namespace MyTasks.Persistence.Repositories
 {
-    public class TaskRepository
+    public class TaskRepository : ITaskRepository
     {
-        private ApplicationDbContext _context;
-        public TaskRepository(ApplicationDbContext context)
+        private IApplicationDbContext _context;
+        public TaskRepository(IApplicationDbContext context)
         {
             _context = context;
         }
-        public IEnumerable<Task> Get(string userId, bool isExecuted = false, int categoryId = 0, string title = null)
+        public IEnumerable<Task> Get(string userId, bool isExecuted = false, int categoryId = 0, string? title = null)
         {
             var tasks = _context.Tasks
                 .Include(x => x.Category)
